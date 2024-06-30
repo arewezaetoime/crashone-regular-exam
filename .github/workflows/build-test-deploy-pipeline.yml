@@ -8,24 +8,24 @@ on:
     branches: [ "main" ]
 
 jobs:
-  build:
+  display-my-username:
 
     runs-on: ubuntu-latest
 
     steps:
+    - name: Display my username
+      run: echo 'crashone'
+
     - uses: actions/checkout@v4
-    - name: Use Node.js 20x
+    - name: Display my username
+
       uses: actions/setup-node@v4
       with:
         node-version: 20.x
         cache: 'npm'
-    - name: Display my username
-      run: echo 'crashone'
-    - name: Install npm modules
-      run: npm install
   
-  execute-ui-tests:
-    needs: build
+  build-and-execute-ui-and-unit-tests:
+    needs: display-my-username
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v4
@@ -34,6 +34,10 @@ jobs:
       with:
         node-version: 20.x
         cache: 'npm'
+
+    - name: Install npm modules
+      run: npm install
+    
 
     - name: Install Playwright
       run: npx playwright install
@@ -48,7 +52,7 @@ jobs:
       run: npm run test:ui
 
   deploy:
-    needs: execute-ui-tests
+    needs: build-and-execute-ui-and-unit-tests
     runs-on: ubuntu-latest
     steps:
       - name: Deploy to production
