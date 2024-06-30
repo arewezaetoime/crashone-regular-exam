@@ -42,7 +42,7 @@ jobs:
       run: npm run start &
       
     - name: Running the unit tests
-      run: npm run test:unit
+      run: mocha -u tdd 'tests/unit/*.js
       
     - name: Run UI tests
       run: npm run test:ui
