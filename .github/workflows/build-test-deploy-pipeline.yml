@@ -19,6 +19,8 @@ jobs:
       with:
         node-version: 20.x
         cache: 'npm'
+    - name: Display my username
+      run: echo 'crashone'
     - name: Install npm modules
       run: npm install
       
